@@ -14,6 +14,9 @@ namespace SmartAquariumController
             InitializeComponent();
             this.Text = "Smart Aquarium Controller – Main Dashboard";
             this.Load += MainDashboard_Load; // ensure Load event is connected
+           // var feeder = new SmartAquariumController.Controls.FeederControl();
+           // feeder.Dispense(2);
+          //System.Windows.Forms.MessageBox.Show(feeder.ToString(), "Feeder Test");
         }
 
         private void MainDashboard_Load(object sender, EventArgs e)
