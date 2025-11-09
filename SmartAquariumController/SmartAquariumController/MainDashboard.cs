@@ -14,6 +14,10 @@ namespace SmartAquariumController
             InitializeComponent();
             this.Text = "Smart Aquarium Controller – Main Dashboard";
             this.Load += MainDashboard_Load; // ensure Load event is connected
+
+            //var light = new SmartAquariumController.Controls.LightControl();
+            //light.Toggle();
+            //System.Windows.Forms.MessageBox.Show(light.ToString(), "Light Test");
         }
 
         private void MainDashboard_Load(object sender, EventArgs e)
