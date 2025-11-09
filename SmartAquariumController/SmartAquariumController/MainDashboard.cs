@@ -13,8 +13,12 @@ namespace SmartAquariumController
         {
             InitializeComponent();
             this.Text = "Smart Aquarium Controller – Main Dashboard";
-            this.Load += MainDashboard_Load; // ensure Load event is connected
+
+            //var ph = new SmartAquariumController.Sensors.PHSensor();
+            //ph.Update();
+            //MessageBox.Show(ph.ToString(), "pH Test");
         }
+
 
         private void MainDashboard_Load(object sender, EventArgs e)
         {
