@@ -14,6 +14,10 @@ namespace SmartAquariumController
             InitializeComponent();
             this.Text = "Smart Aquarium Controller – Main Dashboard";
             this.Load += MainDashboard_Load; // ensure Load event is connected
+
+            //var oxygen = new SmartAquariumController.Sensors.OxygenSensor();
+            //oxygen.Update();
+            //System.Windows.Forms.MessageBox.Show(oxygen.ToString(), "Oxygen Test");
         }
 
         private void MainDashboard_Load(object sender, EventArgs e)
