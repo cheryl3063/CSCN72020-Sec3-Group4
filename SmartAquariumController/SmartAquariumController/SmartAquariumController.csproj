@@ -52,6 +52,7 @@
     <Compile Include="MainDashboard.Designer.cs">
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="OxygenSensor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainDashboard.resx">
