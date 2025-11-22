@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB9B121D-1691-4428-8CC1-A9934D54CFE2}</ProjectGuid>
+    <ProjectGuid>{28AC86DD-84CD-275B-F8EF-770DAF8680E8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SmartAquariumController</RootNamespace>
     <AssemblyName>SmartAquariumController</AssemblyName>
