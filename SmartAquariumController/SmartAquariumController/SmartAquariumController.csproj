@@ -52,11 +52,18 @@
     <Compile Include="MainDashboard.Designer.cs">
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainDashboard.resx">
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Program.cs" />
+    <!-- Sensors -->
+    <Compile Include="TemperatureSensor.cs" />
+    <Compile Include="PHSensor.cs" />
+    <Compile Include="OxygenSensor.cs" />
+    <!-- Controllers -->
+    <Compile Include="FeederControl.cs" />
+    <Compile Include="LightControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

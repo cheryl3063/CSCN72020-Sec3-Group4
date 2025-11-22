@@ -15,6 +15,7 @@ namespace SmartAquariumController
         public MainDashboard()
         {
             InitializeComponent();
+
         }
     }
 }
