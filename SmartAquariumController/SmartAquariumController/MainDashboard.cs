@@ -116,10 +116,25 @@ namespace SmartAquariumController
                 ledOxygen.BackColor = Color.LimeGreen;
             }
 
-            // ---------------- LIGHT ----------------
-            bool isOn = lightControl.IsLightOn();
-            lblLight.Text = isOn ? "💡 Light: ON" : "💡 Light: OFF";
+            // ---------------- LIGHT (SPRINT 2) ----------------
+
+            // Step 1 — auto-cycle every tick
+            lightControl.UpdateAutoCycle();
+
+            // Step 2 — current light state
+            bool isOn = lightControl.IsLightOn;
+
+            // Step 3 — update label with emoji + status
+            lblLight.Text = "💡 " + lightControl.GetStatus();
+
+            // Step 4 — update LED color
             ledLight.BackColor = isOn ? Color.LimeGreen : Color.DimGray;
+
+            // Step 5 — log only when state actually changes
+            if (lightControl.CheckForStateChange())
+            {
+                LogEvent(isOn ? "Light Turned ON" : "Light Turned OFF");
+            }
 
             // ---------------- FEEDER ----------------
             string status = feederControl.GetStatus();
