@@ -322,5 +322,10 @@ namespace SmartAquariumController
                 MessageBox.Show("No events logged yet.", "Event Log");
             }
         }
+        private void btnCalibration_Click(object sender, EventArgs e)
+        {
+            CalibrationForm cf = new CalibrationForm();
+            cf.ShowDialog();
+        }
     }
 }
