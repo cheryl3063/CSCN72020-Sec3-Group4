@@ -15,41 +15,44 @@
 
         private void InitializeComponent()
         {
-            this.Load += new System.EventHandler(this.MainDashboard_Load);
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
 
-            // --- PANELS ---
+            // Panels
             this.panelTemp = new System.Windows.Forms.Panel();
             this.panelPH = new System.Windows.Forms.Panel();
             this.panelOxygen = new System.Windows.Forms.Panel();
             this.panelLight = new System.Windows.Forms.Panel();
             this.panelFeeder = new System.Windows.Forms.Panel();
 
-            // --- LED PANELS ---
+            // LEDs
             this.ledTemp = new System.Windows.Forms.Panel();
             this.ledPH = new System.Windows.Forms.Panel();
             this.ledOxygen = new System.Windows.Forms.Panel();
             this.ledLight = new System.Windows.Forms.Panel();
             this.ledFeeder = new System.Windows.Forms.Panel();
 
-            // --- LABELS ---
+            // Labels
             this.lblTemp = new System.Windows.Forms.Label();
             this.lblPH = new System.Windows.Forms.Label();
             this.lblOxygen = new System.Windows.Forms.Label();
             this.lblLight = new System.Windows.Forms.Label();
             this.lblFeeder = new System.Windows.Forms.Label();
 
-            // --- BUTTONS ---
+            // Buttons
             this.btnDarkMode = new System.Windows.Forms.Button();
             this.btnViewLog = new System.Windows.Forms.Button();
+            this.btnCalibration = new System.Windows.Forms.Button();
 
-            // --- FORM SETUP ---
+            // FORM SETUP
             this.SuspendLayout();
             this.ClientSize = new System.Drawing.Size(850, 650);
             this.Text = "Smart Aquarium Controller – Main Dashboard";
+            this.BackColor = System.Drawing.Color.White;
 
-            // -------- TEMP PANEL --------
+            // -----------------------------------------
+            // Temperature Panel
+            // -----------------------------------------
             this.panelTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTemp.Size = new System.Drawing.Size(380, 70);
             this.panelTemp.Location = new System.Drawing.Point(20, 120);
@@ -65,7 +68,9 @@
             this.panelTemp.Controls.Add(this.ledTemp);
             this.panelTemp.Controls.Add(this.lblTemp);
 
-            // -------- PH PANEL --------
+            // -----------------------------------------
+            // pH Panel
+            // -----------------------------------------
             this.panelPH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPH.Size = new System.Drawing.Size(380, 70);
             this.panelPH.Location = new System.Drawing.Point(20, 210);
@@ -81,7 +86,9 @@
             this.panelPH.Controls.Add(this.ledPH);
             this.panelPH.Controls.Add(this.lblPH);
 
-            // -------- OXYGEN PANEL --------
+            // -----------------------------------------
+            // Oxygen Panel
+            // -----------------------------------------
             this.panelOxygen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOxygen.Size = new System.Drawing.Size(380, 70);
             this.panelOxygen.Location = new System.Drawing.Point(20, 300);
@@ -97,7 +104,9 @@
             this.panelOxygen.Controls.Add(this.ledOxygen);
             this.panelOxygen.Controls.Add(this.lblOxygen);
 
-            // -------- LIGHT PANEL --------
+            // -----------------------------------------
+            // Light Panel
+            // -----------------------------------------
             this.panelLight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLight.Size = new System.Drawing.Size(380, 70);
             this.panelLight.Location = new System.Drawing.Point(20, 390);
@@ -113,7 +122,9 @@
             this.panelLight.Controls.Add(this.ledLight);
             this.panelLight.Controls.Add(this.lblLight);
 
-            // -------- FEEDER PANEL --------
+            // -----------------------------------------
+            // Feeder Panel
+            // -----------------------------------------
             this.panelFeeder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelFeeder.Size = new System.Drawing.Size(380, 70);
             this.panelFeeder.Location = new System.Drawing.Point(20, 480);
@@ -129,26 +140,41 @@
             this.panelFeeder.Controls.Add(this.ledFeeder);
             this.panelFeeder.Controls.Add(this.lblFeeder);
 
-            // -------- DARK MODE BUTTON (top-right) --------
+            // -----------------------------------------
+            // Dark Mode Button
+            // -----------------------------------------
             this.btnDarkMode.Location = new System.Drawing.Point(700, 30);
             this.btnDarkMode.Size = new System.Drawing.Size(120, 30);
             this.btnDarkMode.Text = "🌙 Dark Mode";
-            this.btnDarkMode.UseVisualStyleBackColor = true;
             this.btnDarkMode.Click += new System.EventHandler(this.btnDarkMode_Click);
 
-            // -------- VIEW LOG BUTTON (centered under cards) --------
-            this.btnViewLog.Location = new System.Drawing.Point(170, 570); // under cards
+            // -----------------------------------------
+            // View Log Button
+            // -----------------------------------------
+            this.btnViewLog.Location = new System.Drawing.Point(170, 570);
             this.btnViewLog.Size = new System.Drawing.Size(130, 30);
             this.btnViewLog.Text = "📄 View Log";
-            this.btnViewLog.UseVisualStyleBackColor = true;
             this.btnViewLog.Click += new System.EventHandler(this.btnViewLog_Click);
 
-            // -------- TIMER --------
+            // -----------------------------------------
+            // Calibration Button (TONSE SPRINT 2)
+            // -----------------------------------------
+            this.btnCalibration.Location = new System.Drawing.Point(700, 70);
+            this.btnCalibration.Size = new System.Drawing.Size(120, 30);
+            this.btnCalibration.Text = "⚙️ Calibration";
+            this.btnCalibration.UseVisualStyleBackColor = true;
+            this.btnCalibration.Click += new System.EventHandler(this.btnCalibration_Click);
+
+            // -----------------------------------------
+            // Timer
+            // -----------------------------------------
             this.timer1.Interval = 2000;
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 
-            // -------- ADD CONTROLS TO FORM --------
+            // -----------------------------------------
+            // Add Controls to Form
+            // -----------------------------------------
             this.Controls.Add(this.panelTemp);
             this.Controls.Add(this.panelPH);
             this.Controls.Add(this.panelOxygen);
@@ -156,6 +182,7 @@
             this.Controls.Add(this.panelFeeder);
             this.Controls.Add(this.btnDarkMode);
             this.Controls.Add(this.btnViewLog);
+            this.Controls.Add(this.btnCalibration);
 
             this.ResumeLayout(false);
         }
@@ -184,5 +211,6 @@
 
         private System.Windows.Forms.Button btnDarkMode;
         private System.Windows.Forms.Button btnViewLog;
+        private System.Windows.Forms.Button btnCalibration;
     }
 }
