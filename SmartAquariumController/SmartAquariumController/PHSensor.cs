@@ -1,89 +1,28 @@
 ﻿using System;
-using System.IO;
 
-namespace SmartAquariumController
+public class PHSensor
 {
-    /// <summary>
-    /// Simple pH sensor simulation for the Smart Aquarium Controller.
-    /// Reads a value from "ph.txt" and provides range checking.
-    /// </summary>
-    public class PHSensor
+    Random rand = new Random();
+
+    public double GetValue()
     {
-        private readonly string _filePath;
+        double r = rand.NextDouble();
 
-        /// <summary>
-        /// Last pH value read.
-        /// </summary>
-        public double CurrentPH { get; private set; }
-
-        /// <summary>
-        /// Safe range (typical freshwater fish).
-        /// </summary>
-        public double MinSafePH { get; } = 6.5;
-        public double MaxSafePH { get; } = 7.5;
-
-        public PHSensor()
+        // 75% normal range: 6.5–8.0
+        if (r < 0.75)
         {
-            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ph.txt");
-
-            // Create default pH file if missing
-            if (!File.Exists(_filePath))
-            {
-                File.WriteAllText(_filePath, "7.2");
-            }
-
-            Update();
+            return Math.Round(6.5 + rand.NextDouble() * 1.5, 2);
         }
 
-        /// <summary>
-        /// Reads the latest pH value from the file.
-        /// </summary>
-        public void Update()
+        // 12.5% too acidic: 5.8–6.4
+        if (r < 0.875)
         {
-            try
-            {
-                string text = File.ReadAllText(_filePath).Trim();
-
-                if (double.TryParse(text, out double value))
-                {
-                    CurrentPH = value;
-                }
-                else
-                {
-                    CurrentPH = 7.2;
-                }
-            }
-            catch
-            {
-                CurrentPH = 7.2;
-            }
+            return Math.Round(5.8 + rand.NextDouble() * 0.6, 2);
         }
 
-        /// <summary>
-        /// Returns true if pH is in safe range.
-        /// </summary>
-        public bool IsInSafeRange()
-        {
-            return CurrentPH >= MinSafePH && CurrentPH <= MaxSafePH;
-        }
-
-        /// <summary>
-        /// Friendly status message.
-        /// </summary>
-        public string GetStatus()
-        {
-            if (IsInSafeRange())
-                return $"pH Level: {CurrentPH:F1} (safe)";
-
-            if (CurrentPH < MinSafePH)
-                return $"pH Level: {CurrentPH:F1} (too acidic — add buffer)";
-
-            return $"pH Level: {CurrentPH:F1} (too alkaline — adjust water)";
-        }
-
-        public override string ToString()
-        {
-            return $"pH Level: {CurrentPH:F1}";
-        }
+        // 12.5% too alkaline: 8.1–8.6
+        return Math.Round(8.1 + rand.NextDouble() * 0.5, 2);
     }
+
+    public double ReadValue() => GetValue();
 }
