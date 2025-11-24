@@ -194,15 +194,18 @@ namespace SmartAquariumController
 
         private void LogEvent(string message)
         {
-            try
-            {
-                string entry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}";
-                File.AppendAllText(logFile, entry + Environment.NewLine);
-            }
-            catch
-            {
-                // no crash if logging fails
-            }
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string category = "";
+
+            if (message.Contains("Temperature")) category = "[TEMP]";
+            else if (message.Contains("pH")) category = "[PH]";
+            else if (message.Contains("Oxygen")) category = "[OXY]";
+            else if (message.Contains("Light")) category = "[LIGHT]";
+            else if (message.Contains("Calibration")) category = "[CALIB]";
+            else category = "[SYS]";
+
+            string formatted = $"{timestamp} {category} {message}";
+            File.AppendAllText("aquarium_log.txt", formatted + Environment.NewLine);
         }
 
         // ----------- LED BLINK TIMER ----------------
