@@ -92,6 +92,7 @@
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Program.cs" />
+    <Compile Include="SensorStatus.cs" />
     <!-- Sensors -->
     <Compile Include="TemperatureSensor.cs" />
     <Compile Include="PHSensor.cs" />
