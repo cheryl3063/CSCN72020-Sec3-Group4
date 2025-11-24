@@ -197,7 +197,6 @@ namespace SmartAquariumController
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string category = "";
 
-            // Auto-classify message
             if (message.Contains("Temperature")) category = "[TEMP]";
             else if (message.Contains("pH")) category = "[PH]";
             else if (message.Contains("Oxygen")) category = "[OXY]";
