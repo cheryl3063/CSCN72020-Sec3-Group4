@@ -1,13 +1,30 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-public class FeederControl
+namespace SmartAquariumController
 {
-    private string status = "Idle";
-    private Random rand = new Random();
-
-    public string GetStatus()
+    public class FeederControl
     {
-        status = rand.Next(0, 2) == 1 ? "Feeding" : "Idle";
-        return status;
+        public bool IsFeeding { get; private set; }
+        public DateTime LastFedTime { get; private set; }
+
+        public async Task FeedNow()
+        {
+            if (IsFeeding)
+                return;
+
+            IsFeeding = true;
+
+            // Simulate feeder motor running 3 seconds
+            await Task.Delay(3000);
+
+            LastFedTime = DateTime.Now;
+            IsFeeding = false;
+        }
+
+        public string GetStatus()
+        {
+            return IsFeeding ? "Feeder: Feeding" : "Feeder: Idle";
+        }
     }
 }
