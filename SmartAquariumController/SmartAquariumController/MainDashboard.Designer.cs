@@ -3,6 +3,12 @@
     partial class MainDashboard
     {
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Panel panelAnalytics;
+        private System.Windows.Forms.Label lblAnalyticsHeader;
+        private System.Windows.Forms.Label lblTempStats;
+        private System.Windows.Forms.Label lblPHStats;
+        private System.Windows.Forms.Label lblOxyStats;
+        private System.Windows.Forms.Label lblAlertSummary;
 
         protected override void Dispose(bool disposing)
         {
@@ -241,6 +247,83 @@
             this.panelFeeder.PerformLayout();
             this.ResumeLayout(false);
 
+            // ================== ANALYTICS PANEL (RIGHT SIDE) ==================
+
+            this.panelAnalytics = new System.Windows.Forms.Panel();
+            this.lblAnalyticsHeader = new System.Windows.Forms.Label();
+            this.lblTempStats = new System.Windows.Forms.Label();
+            this.lblPHStats = new System.Windows.Forms.Label();
+            this.lblOxyStats = new System.Windows.Forms.Label();
+            this.lblAlertSummary = new System.Windows.Forms.Label();
+
+            // 
+            // panelAnalytics
+            // 
+            this.panelAnalytics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelAnalytics.Location = new System.Drawing.Point(650, 120);  // RIGHT SIDE — Safe
+            this.panelAnalytics.Name = "panelAnalytics";
+            this.panelAnalytics.Size = new System.Drawing.Size(260, 240);
+            this.panelAnalytics.BackColor = System.Drawing.Color.WhiteSmoke;
+
+            // 
+            // lblAnalyticsHeader
+            // 
+            this.lblAnalyticsHeader.AutoSize = true;
+            this.lblAnalyticsHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
+            this.lblAnalyticsHeader.Location = new System.Drawing.Point(20, 15);
+            this.lblAnalyticsHeader.Name = "lblAnalyticsHeader";
+            this.lblAnalyticsHeader.Size = new System.Drawing.Size(150, 20);
+            this.lblAnalyticsHeader.Text = "Analytics Summary";
+
+            // 
+            // lblTempStats
+            // 
+            this.lblTempStats.AutoSize = true;
+            this.lblTempStats.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.lblTempStats.Location = new System.Drawing.Point(20, 55);
+            this.lblTempStats.Name = "lblTempStats";
+            this.lblTempStats.Size = new System.Drawing.Size(65, 17);
+            this.lblTempStats.Text = "Temp: --";
+
+            // 
+            // lblPHStats
+            // 
+            this.lblPHStats.AutoSize = true;
+            this.lblPHStats.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.lblPHStats.Location = new System.Drawing.Point(20, 85);
+            this.lblPHStats.Name = "lblPHStats";
+            this.lblPHStats.Size = new System.Drawing.Size(48, 17);
+            this.lblPHStats.Text = "pH: --";
+
+            // 
+            // lblOxyStats
+            // 
+            this.lblOxyStats.AutoSize = true;
+            this.lblOxyStats.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.lblOxyStats.Location = new System.Drawing.Point(20, 115);
+            this.lblOxyStats.Name = "lblOxyStats";
+            this.lblOxyStats.Size = new System.Drawing.Size(75, 17);
+            this.lblOxyStats.Text = "Oxygen: --";
+
+            // 
+            // lblAlertSummary
+            // 
+            this.lblAlertSummary.AutoSize = true;
+            this.lblAlertSummary.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.lblAlertSummary.Location = new System.Drawing.Point(20, 150);
+            this.lblAlertSummary.Name = "lblAlertSummary";
+            this.lblAlertSummary.Size = new System.Drawing.Size(60, 17);
+            this.lblAlertSummary.Text = "Alerts: --";
+
+            // Add controls into panel
+            this.panelAnalytics.Controls.Add(this.lblAnalyticsHeader);
+            this.panelAnalytics.Controls.Add(this.lblTempStats);
+            this.panelAnalytics.Controls.Add(this.lblPHStats);
+            this.panelAnalytics.Controls.Add(this.lblOxyStats);
+            this.panelAnalytics.Controls.Add(this.lblAlertSummary);
+
+            // Add analytics panel to form
+            this.Controls.Add(this.panelAnalytics);
         }
 
         #endregion

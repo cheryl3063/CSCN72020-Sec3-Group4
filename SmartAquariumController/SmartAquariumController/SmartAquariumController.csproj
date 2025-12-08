@@ -76,12 +76,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyticsEngine.cs" />
     <Compile Include="CalibrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CalibrationForm.Designer.cs">
       <DependentUpon>CalibrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LogRepository.cs" />
     <Compile Include="MainDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
