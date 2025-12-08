@@ -345,5 +345,11 @@ namespace SmartAquariumController
             CalibrationForm cf = new CalibrationForm();
             cf.ShowDialog();
         }
+
+        private void btnManualControls_Click(object sender, EventArgs e)
+        {
+            var form = new ManualControlForm(lightControl, feederControl);
+            form.Show();
+        }
     }
 }
