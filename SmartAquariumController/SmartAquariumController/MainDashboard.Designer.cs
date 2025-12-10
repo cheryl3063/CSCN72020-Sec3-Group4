@@ -300,6 +300,25 @@ namespace SmartAquariumController
             this.lblAlertSummary.Size = new System.Drawing.Size(60, 17);
             this.lblAlertSummary.Text = "Alerts: --";
 
+            // 
+            // btnAnalytics
+            // 
+            this.btnAnalytics = new System.Windows.Forms.Button();
+            this.btnAnalytics.BackColor = System.Drawing.Color.White;
+            this.btnAnalytics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnalytics.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.btnAnalytics.Location = new System.Drawing.Point(40, 420);
+            this.btnAnalytics.Name = "btnAnalytics";
+            this.btnAnalytics.Size = new System.Drawing.Size(180, 40);
+            this.btnAnalytics.TabIndex = 20;
+            this.btnAnalytics.Text = "View Sensor Analytics";
+            this.btnAnalytics.UseVisualStyleBackColor = false;
+            this.btnAnalytics.Click += new System.EventHandler(this.btnAnalytics_Click);
+
+            // Add button to form controls
+            this.Controls.Add(this.btnAnalytics);
+
+        }
             // Add controls into panel
             this.panelAnalytics.Controls.Add(this.lblAnalyticsHeader);
             this.panelAnalytics.Controls.Add(this.lblTempStats);

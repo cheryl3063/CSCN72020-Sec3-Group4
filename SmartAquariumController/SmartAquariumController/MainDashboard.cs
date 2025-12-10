@@ -280,6 +280,7 @@ namespace SmartAquariumController
             StyleCardPanel(panelOxygen);
             StyleCardPanel(panelLight);
             StyleCardPanel(panelFeeder);
+            StyleRoundedButton(btnAnalytics);
 
             this.BackColor = Color.WhiteSmoke;
 
@@ -680,6 +681,49 @@ namespace SmartAquariumController
             cf.ShowDialog();
         }
 
+        private void btnAnalytics_Click(object sender, EventArgs e)
+        {
+            AnalyticsForm af = new AnalyticsForm();
+            af.Show();
+        }
+
+        private void StyleRoundedButton(Button btn)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = Color.FromArgb(245, 245, 250);
+            btn.ForeColor = Color.Black;
+            btn.Font = new Font("Segoe UI", 9.5f, FontStyle.Regular);
+
+            // Rounded edges
+            btn.Region = new Region(new System.Drawing.Drawing2D.GraphicsPath());
+
+            int radius = 20;
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(btn.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(btn.Width - radius, btn.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, btn.Height - radius, radius, radius, 90, 90);
+            path.CloseFigure();
+            btn.Region = new Region(path);
+
+            // Soft shadow
+            btn.Paint += (s, e) =>
+            {
+                using (var shadow = new SolidBrush(Color.FromArgb(40, 0, 0, 0)))
+                    e.Graphics.FillRectangle(shadow, 2, btn.Height - 4, btn.Width - 4, 4);
+            };
+
+            // Hover glow
+            btn.MouseEnter += (s, e) =>
+            {
+                btn.BackColor = Color.FromArgb(255, 255, 255);
+            };
+
+            btn.MouseLeave += (s, e) =>
+            {
+                btn.BackColor = Color.FromArgb(245, 245, 250);
+            };
         private void UpdateAnalyticsUI()
         {
             var tempStats = analytics.GetTemperatureAnalytics();
