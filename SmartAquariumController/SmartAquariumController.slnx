@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="SmartAquariumController.Tests/SmartAquariumController.Tests.csproj" Id="7d1dfba7-dd02-4ed8-9c22-d8732c3e4d5d" />
   <Project Path="SmartAquariumController/SmartAquariumController.csproj" />
 </Solution>

@@ -155,7 +155,7 @@ namespace SmartAquariumController
             }
 
             lblLight.Text = lightControl.GetStatus();
-            ledLight.BackColor = lightControl.IsLightOn ? Color().LimeGreen : Color.Gray;
+            ledLight.BackColor = lightControl.IsLightOn ? Color.LimeGreen : Color.Gray;
 
             // ---------------- FEEDER ----------------
             string status = feederControl.GetStatus();
@@ -352,6 +352,8 @@ namespace SmartAquariumController
                 (this.ClientSize.Width - btnViewLog.Width) / 2,
                 bottomY + tileHeight + 80
             );
+
+            panelAnalytics.Visible = false;
         }
 
         // ---------------- HELPER: LED STYLE ----------------
@@ -643,16 +645,11 @@ namespace SmartAquariumController
         }
 
         // ---------------- DEVICE TILE CLICK EVENTS ----------------
-        private void PanelLight_Click(object sender, EventArgs e)
-        {
-            // TODO (Nifemi): Implement LightControl.Toggle()
-            // Example:
-            // lightControl.Toggle();
-        }
 
-        private void PanelFeeder_Click(object sender, EventArgs e)
+        private async void PanelFeeder_Click(object sender, EventArgs e)
         {
-            // TODO (Chidera): Implement feederControl.FeedNow();
+            await feederControl.FeedNow();
+            UpdateDashboardUI();
         }
 
         private void btnDarkMode_Click(object sender, EventArgs e)
@@ -724,8 +721,11 @@ namespace SmartAquariumController
             {
                 btn.BackColor = Color.FromArgb(245, 245, 250);
             };
+        }
         private void UpdateAnalyticsUI()
         {
+            analytics.LoadLogs();
+
             var tempStats = analytics.GetTemperatureAnalytics();
             lblTempStats.Text =
                 $"Temp: Avg {tempStats.Average:F1}°C | Min {tempStats.Min:F1}°C | Max {tempStats.Max:F1}°C";
@@ -741,10 +741,12 @@ namespace SmartAquariumController
             var alerts = analytics.GetAlertSummary();
             lblAlertSummary.Text =
                 $"Alerts → Temp: {alerts.TemperatureAlerts}, pH: {alerts.PHAlerts}, Oxy: {alerts.OxygenAlerts}";
+        }
         private void btnManualControls_Click(object sender, EventArgs e)
         {
             var form = new ManualControlForm(lightControl, feederControl);
             form.Show();
+        }
         private async void PanelLight_Click(object sender, EventArgs e)
         {
             lightControl.Toggle();

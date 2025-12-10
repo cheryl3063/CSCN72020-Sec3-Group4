@@ -2,20 +2,13 @@
 
 namespace SmartAquariumController
 {
-    /// <summary>
-    /// Sprint 2: Upgraded LightControl with:
-    /// - Auto day/night cycle simulation
-    /// - Manual override
-    /// - State-change detection
-    /// - Clean status reporting
-    /// </summary>
     public class LightControl
     {
         public bool IsLightOn { get; private set; }
         public bool ManualOverride { get; private set; }
 
-        private bool lastState = false;         // Used to detect changes for logging
-        private int simulatedHour = 0;          // 0–23 simulated time
+        private bool lastState = false;
+        private int simulatedHour = 0;
 
         public LightControl()
         {
@@ -23,48 +16,32 @@ namespace SmartAquariumController
             ManualOverride = false;
         }
 
-        /// <summary>
-        /// Toggles light manually (manual override mode)
-        /// </summary>
+        // Used by the test – just needs to flip IsLightOn
         public void Toggle()
         {
             ManualOverride = true;
             IsLightOn = !IsLightOn;
         }
 
-        /// <summary>
-        /// Turns light ON manually
-        /// </summary>
         public void TurnOn()
         {
             ManualOverride = true;
             IsLightOn = true;
         }
 
-        /// <summary>
-        /// Turns light OFF manually
-        /// </summary>
         public void TurnOff()
         {
             ManualOverride = true;
             IsLightOn = false;
         }
 
-        /// <summary>
-        /// Automatic day/night cycle:
-        /// - Daytime (06:00–20:00): Light ON
-        /// - Nighttime (20:00–06:00): Light OFF
-        /// </summary>
         public void UpdateAutoCycle()
         {
             if (ManualOverride)
-                return;   // Skip auto rules if user toggled manually
+                return;
 
-            // Advance simulated hour
             simulatedHour = (simulatedHour + 1) % 24;
-
             bool shouldBeOn = simulatedHour >= 6 && simulatedHour < 20;
-
             IsLightOn = shouldBeOn;
         }
 
@@ -73,9 +50,6 @@ namespace SmartAquariumController
             ManualOverride = false;
         }
 
-        /// <summary>
-        /// Returns TRUE only when the light actually changes (used for logging)
-        /// </summary>
         public bool CheckForStateChange()
         {
             if (IsLightOn != lastState)
@@ -87,9 +61,6 @@ namespace SmartAquariumController
             return false;
         }
 
-        /// <summary>
-        /// Returns readable status for UI
-        /// </summary>
         public string GetStatus()
         {
             if (ManualOverride)

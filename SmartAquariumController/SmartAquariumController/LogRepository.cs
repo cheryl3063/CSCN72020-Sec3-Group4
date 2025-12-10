@@ -9,6 +9,16 @@ namespace SmartAquariumController
     {
         public DateTime Timestamp { get; set; }
         public string Message { get; set; }
+
+        // Needed for JSON deserialization
+        public LogEntry() { }
+
+        // Used by tests & logging
+        public LogEntry(string message)
+        {
+            Timestamp = DateTime.Now;
+            Message = message;
+        }
     }
 
     public class LogRepository
@@ -41,12 +51,7 @@ namespace SmartAquariumController
 
         public void AddLog(string message)
         {
-            Logs.Add(new LogEntry
-            {
-                Timestamp = DateTime.Now,
-                Message = message
-            });
-
+            Logs.Add(new LogEntry(message));
             SaveLogs();
         }
 

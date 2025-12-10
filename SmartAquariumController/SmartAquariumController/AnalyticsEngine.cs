@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SmartAquariumController
 {
-    // Holds computed stats for a sensor
     public class SensorAnalytics
     {
         public double Average { get; set; }
@@ -15,7 +14,6 @@ namespace SmartAquariumController
         public int AlertCount { get; set; }
     }
 
-    // Holds total alerts
     public class AlertSummary
     {
         public int TemperatureAlerts { get; set; }
@@ -27,23 +25,16 @@ namespace SmartAquariumController
     {
         private List<LogEntry> logs;
 
-        // ------------------------
-        // FIX #1 — PARAMETERLESS CONSTRUCTOR
-        // ------------------------
         public AnalyticsEngine()
         {
             logs = new List<LogEntry>();
         }
 
-        // Original constructor preserved
         public AnalyticsEngine(List<LogEntry> logs)
         {
             this.logs = logs ?? new List<LogEntry>();
         }
 
-        // ------------------------
-        // FIX #2 — LOAD JSON LOGS
-        // ------------------------
         public void LoadLogs()
         {
             if (!File.Exists("log.json"))
@@ -59,96 +50,111 @@ namespace SmartAquariumController
             }
             catch
             {
-                logs = new List<LogEntry>(); // fallback if corrupted
+                logs = new List<LogEntry>();
             }
         }
 
-        // ------------------------
-        // FIX #3 — MainDashboard calls this every tick
-        // For now, Tonse does not need to implement logic here.
-        // ------------------------
+        // REQUIRED because MainDashboard calls it
         public void LogNewEventIfNeeded()
         {
-            // Placeholder — Sprint 3 requirement satisfied
+            // left empty intentionally
         }
 
-        // ---------------- TEMPERATURE ----------------
         public SensorAnalytics GetTemperatureAnalytics()
         {
-            var readings = ExtractNumbers("Temperature:");
-            return BuildAnalytics(readings, "Temperature");
+            var readings = ExtractNumbers(log =>
+                log.Message != null &&
+                log.Message.ToLower().Contains("temperature"));
+
+            return BuildAnalytics(readings);
         }
 
-        // ---------------- pH ----------------
         public SensorAnalytics GetPHAnalytics()
         {
-            var readings = ExtractNumbers("pH");
-            return BuildAnalytics(readings, "pH");
+            var readings = ExtractNumbers(log =>
+                log.Message != null &&
+                log.Message.ToLower().Contains("pH".ToLower()));
+
+            return BuildAnalytics(readings);
         }
 
-        // ---------------- OXYGEN ----------------
         public SensorAnalytics GetOxygenAnalytics()
         {
-            var readings = ExtractNumbers("Oxygen");
-            return BuildAnalytics(readings, "Oxygen");
+            var readings = ExtractNumbers(log =>
+                log.Message != null &&
+                log.Message.ToLower().Contains("oxygen"));
+
+            return BuildAnalytics(readings);
         }
 
-        // ---------------- ALL ALERTS SUMMARY ----------------
         public AlertSummary GetAlertSummary()
         {
             return new AlertSummary
             {
-                TemperatureAlerts = CountAlerts("Temperature"),
+                TemperatureAlerts = CountAlerts("temperature"),
                 PHAlerts = CountAlerts("pH"),
-                OxygenAlerts = CountAlerts("Oxygen")
-            };
-        }
-
-        // ---------------- HELPERS ----------------
-        private SensorAnalytics BuildAnalytics(List<double> readings, string alertKeyword)
-        {
-            return new SensorAnalytics
-            {
-                Average = readings.Any() ? readings.Average() : 0,
-                Min = readings.Any() ? readings.Min() : 0,
-                Max = readings.Any() ? readings.Max() : 0,
-                AlertCount = CountAlerts(alertKeyword)
+                OxygenAlerts = CountAlerts("oxygen")
             };
         }
 
         private int CountAlerts(string keyword)
         {
+            keyword = keyword.ToLower();
+
             return logs.Count(l =>
                 l.Message != null &&
-                l.Message.ToLower().Contains(keyword.ToLower()));
+                l.Message.ToLower().Contains(keyword));
         }
 
-        private List<double> ExtractNumbers(string prefix)
+        private List<double> ExtractNumbers(Func<LogEntry, bool> filter)
         {
-            var result = new List<double>();
+            var results = new List<double>();
 
-            foreach (var log in logs)
+            foreach (var log in logs.Where(filter))
             {
-                if (log.Message == null || !log.Message.ToLower().Contains(prefix.ToLower()))
+                if (log.Message == null) continue;
+
+                int start = log.Message.IndexOf('(');
+                int end = log.Message.IndexOf(')');
+
+                if (start == -1 || end == -1 || end <= start + 1)
                     continue;
 
-                // Example formats:
-                // (29.0 °C)
-                // (3.1 mg/L)
-                // (9.23)
-                int start = log.Message.IndexOf("(");
-                int end = log.Message.IndexOf(")");
-
-                if (start == -1 || end == -1) continue;
-
                 string inside = log.Message.Substring(start + 1, end - start - 1);
-                string numberText = inside.Split(' ')[0];
+
+                // FIX: Split must use char[] not single char with StringSplitOptions
+                string[] parts = inside.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length == 0) continue;
+
+                string numberText = parts[0];
 
                 if (double.TryParse(numberText, out double value))
-                    result.Add(value);
+                    results.Add(value);
             }
 
-            return result;
+            return results;
+        }
+
+        private SensorAnalytics BuildAnalytics(List<double> readings)
+        {
+            if (readings == null || readings.Count == 0)
+            {
+                return new SensorAnalytics
+                {
+                    Average = 0,
+                    Min = 0,
+                    Max = 0,
+                    AlertCount = 0
+                };
+            }
+
+            return new SensorAnalytics
+            {
+                Average = readings.Average(),
+                Min = readings.Min(),
+                Max = readings.Max(),
+                AlertCount = readings.Count
+            };
         }
     }
 }
