@@ -13,6 +13,7 @@ namespace SmartAquariumController
         private OxygenSensor oxygenSensor;
         private LightControl lightControl;
         private FeederControl feederControl;
+        private AnalyticsEngine analytics;
 
         private bool blinkState = false;
         private Timer blinkTimer;
@@ -35,6 +36,9 @@ namespace SmartAquariumController
         // Log file
         private string logFile = "aquarium_log.txt";
 
+        // JSON log storage (sprint 3)
+        private LogRepository logRepository;
+
         public MainDashboard()
         {
             InitializeComponent();
@@ -45,12 +49,16 @@ namespace SmartAquariumController
             oxygenSensor = new OxygenSensor();
             lightControl = new LightControl();
             feederControl = new FeederControl();
+            analytics = new AnalyticsEngine();
 
             // Blink timer setup
             blinkTimer = new Timer();
             blinkTimer.Interval = 400;
             blinkTimer.Tick += BlinkTimer_Tick;
             blinkTimer.Start();
+
+            // Initialize JSON log repository
+            logRepository = new LogRepository();
         }
 
         // ---------------------------------------------
@@ -206,6 +214,10 @@ namespace SmartAquariumController
             lastOxygenAlertBlinking = isOxygenAlertBlinking;
             lastLightOn = isOn;
             lastFeederStatus = status;
+
+            analytics.LogNewEventIfNeeded();
+
+            UpdateAnalyticsUI();
         }
 
         private void LogEvent(string message)
@@ -221,7 +233,10 @@ namespace SmartAquariumController
             else category = "[SYS]";
 
             string formatted = $"{timestamp} {category} {message}";
-            File.AppendAllText(logFile, formatted + Environment.NewLine);
+            File.AppendAllText("aquarium_log.txt", formatted + Environment.NewLine);
+
+            // Also save in JSON file for analytics (Sprint 3)
+            logRepository.AddLog(message);
         }
 
         // ----------- LED BLINK TIMER ----------------
@@ -266,6 +281,9 @@ namespace SmartAquariumController
             StyleCardPanel(panelLight);
             StyleCardPanel(panelFeeder);
 
+            this.BackColor = Color.WhiteSmoke;
+
+            analytics.LoadLogs();
             // Enable clicking for device tiles (UI only)
             panelLight.Cursor = Cursors.Hand;
             panelFeeder.Cursor = Cursors.Hand;
@@ -662,6 +680,23 @@ namespace SmartAquariumController
             cf.ShowDialog();
         }
 
+        private void UpdateAnalyticsUI()
+        {
+            var tempStats = analytics.GetTemperatureAnalytics();
+            lblTempStats.Text =
+                $"Temp: Avg {tempStats.Average:F1}°C | Min {tempStats.Min:F1}°C | Max {tempStats.Max:F1}°C";
+
+            var phStats = analytics.GetPHAnalytics();
+            lblPHStats.Text =
+                $"pH: Avg {phStats.Average:F2} | Min {phStats.Min:F2} | Max {phStats.Max:F2}";
+
+            var oxyStats = analytics.GetOxygenAnalytics();
+            lblOxyStats.Text =
+                $"Oxy: Avg {oxyStats.Average:F1} | Min {oxyStats.Min:F1} | Max {oxyStats.Max:F1}";
+
+            var alerts = analytics.GetAlertSummary();
+            lblAlertSummary.Text =
+                $"Alerts → Temp: {alerts.TemperatureAlerts}, pH: {alerts.PHAlerts}, Oxy: {alerts.OxygenAlerts}";
         private void btnManualControls_Click(object sender, EventArgs e)
         {
             var form = new ManualControlForm(lightControl, feederControl);
