@@ -1,4 +1,8 @@
-﻿namespace SmartAquariumController
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace SmartAquariumController
 {
     partial class MainDashboard
     {
@@ -18,234 +22,215 @@
         }
 
         #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+
             this.panelTemp = new System.Windows.Forms.Panel();
             this.ledTemp = new System.Windows.Forms.Panel();
             this.lblTemp = new System.Windows.Forms.Label();
+
             this.panelPH = new System.Windows.Forms.Panel();
             this.ledPH = new System.Windows.Forms.Panel();
             this.lblPH = new System.Windows.Forms.Label();
+
             this.panelOxygen = new System.Windows.Forms.Panel();
             this.ledOxygen = new System.Windows.Forms.Panel();
             this.lblOxygen = new System.Windows.Forms.Label();
+
             this.panelLight = new System.Windows.Forms.Panel();
             this.ledLight = new System.Windows.Forms.Panel();
             this.lblLight = new System.Windows.Forms.Label();
+
             this.panelFeeder = new System.Windows.Forms.Panel();
             this.ledFeeder = new System.Windows.Forms.Panel();
             this.lblFeeder = new System.Windows.Forms.Label();
+
             this.btnDarkMode = new System.Windows.Forms.Button();
-            this.btnViewLog = new System.Windows.Forms.Button();
             this.btnCalibration = new System.Windows.Forms.Button();
-            this.panelTemp.SuspendLayout();
-            this.panelPH.SuspendLayout();
-            this.panelOxygen.SuspendLayout();
-            this.panelLight.SuspendLayout();
-            this.panelFeeder.SuspendLayout();
+            this.btnViewLog = new System.Windows.Forms.Button();
+
+            this.lblSectionSensors = new System.Windows.Forms.Label();
+            this.lblSectionSystems = new System.Windows.Forms.Label();
+
+            this.lineSensors = new System.Windows.Forms.Panel();
+            this.lineSystems = new System.Windows.Forms.Panel();
+
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
+
+            // ----------------------------------------
+            // TIMER
+            // ----------------------------------------
             this.timer1.Enabled = true;
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // panelTemp
-            // 
-            this.panelTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // ----------------------------------------
+            // LABELS & DIVIDERS
+            // ----------------------------------------
+            this.lblSectionSensors.AutoSize = true;
+            this.lblSectionSensors.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
+            this.lblSectionSensors.ForeColor = Color.FromArgb(180, 180, 190);
+            this.lblSectionSensors.Location = new Point(50, 130);
+            this.lblSectionSensors.Text = "SENSORS";
+
+            this.lineSensors.Location = new Point(50, 160);
+            this.lineSensors.Size = new Size(1000, 1);
+            this.lineSensors.BackColor = Color.FromArgb(80, 80, 90);
+
+            this.lblSectionSystems.AutoSize = true;
+            this.lblSectionSystems.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
+            this.lblSectionSystems.ForeColor = Color.FromArgb(180, 180, 190);
+            this.lblSectionSystems.Location = new Point(50, 300);
+            this.lblSectionSystems.Text = "SYSTEM DEVICES";
+
+            this.lineSystems.Location = new Point(50, 330);
+            this.lineSystems.Size = new Size(1000, 1);
+            this.lineSystems.BackColor = Color.FromArgb(80, 80, 90);
+
+            // ----------------------------------------
+            // TEMP PANEL (placeholder pos)
+            // ----------------------------------------
+            this.panelTemp.Size = new Size(300, 120);
+            this.panelTemp.Location = new Point(50, 170);
+
+            this.ledTemp.Size = new Size(18, 18);
+            this.ledTemp.Location = new Point(20, 20);
+            this.ledTemp.BackColor = Color.Silver;
+
+            this.lblTemp.AutoSize = true;
+            this.lblTemp.Font = new Font("Segoe UI", 12F);
+            this.lblTemp.Location = new Point(50, 16);
+            this.lblTemp.Text = "🌡️ Temperature: --";
+
             this.panelTemp.Controls.Add(this.ledTemp);
             this.panelTemp.Controls.Add(this.lblTemp);
-            this.panelTemp.Location = new System.Drawing.Point(20, 40);
-            this.panelTemp.Name = "panelTemp";
-            this.panelTemp.Size = new System.Drawing.Size(380, 70);
-            this.panelTemp.TabIndex = 0;
-            // 
-            // ledTemp
-            // 
-            this.ledTemp.BackColor = System.Drawing.Color.Gray;
-            this.ledTemp.Location = new System.Drawing.Point(15, 25);
-            this.ledTemp.Name = "ledTemp";
-            this.ledTemp.Size = new System.Drawing.Size(18, 18);
-            this.ledTemp.TabIndex = 0;
-            // 
-            // lblTemp
-            // 
-            this.lblTemp.AutoSize = true;
-            this.lblTemp.Location = new System.Drawing.Point(50, 25);
-            this.lblTemp.Name = "lblTemp";
-            this.lblTemp.Size = new System.Drawing.Size(125, 16);
-            this.lblTemp.TabIndex = 1;
-            this.lblTemp.Text = "🌡️ Temperature: -- °C";
-            // 
-            // panelPH
-            // 
-            this.panelPH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // ----------------------------------------
+            // PH PANEL
+            // ----------------------------------------
+            this.panelPH.Size = new Size(300, 120);
+            this.panelPH.Location = new Point(400, 170);
+
+            this.ledPH.Size = new Size(18, 18);
+            this.ledPH.Location = new Point(20, 20);
+            this.ledPH.BackColor = Color.Silver;
+
+            this.lblPH.AutoSize = true;
+            this.lblPH.Font = new Font("Segoe UI", 12F);
+            this.lblPH.Location = new Point(50, 16);
+            this.lblPH.Text = "⚗️ pH Level: --";
+
             this.panelPH.Controls.Add(this.ledPH);
             this.panelPH.Controls.Add(this.lblPH);
-            this.panelPH.Location = new System.Drawing.Point(20, 140);
-            this.panelPH.Name = "panelPH";
-            this.panelPH.Size = new System.Drawing.Size(380, 70);
-            this.panelPH.TabIndex = 1;
-            // 
-            // ledPH
-            // 
-            this.ledPH.BackColor = System.Drawing.Color.Gray;
-            this.ledPH.Location = new System.Drawing.Point(15, 25);
-            this.ledPH.Name = "ledPH";
-            this.ledPH.Size = new System.Drawing.Size(18, 18);
-            this.ledPH.TabIndex = 0;
-            // 
-            // lblPH
-            // 
-            this.lblPH.AutoSize = true;
-            this.lblPH.Location = new System.Drawing.Point(50, 25);
-            this.lblPH.Name = "lblPH";
-            this.lblPH.Size = new System.Drawing.Size(90, 16);
-            this.lblPH.TabIndex = 1;
-            this.lblPH.Text = "⚗️ pH Level: --";
-            // 
-            // panelOxygen
-            // 
-            this.panelOxygen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // ----------------------------------------
+            // OXYGEN PANEL
+            // ----------------------------------------
+            this.panelOxygen.Size = new Size(300, 120);
+            this.panelOxygen.Location = new Point(750, 170);
+
+            this.ledOxygen.Size = new Size(18, 18);
+            this.ledOxygen.Location = new Point(20, 20);
+            this.ledOxygen.BackColor = Color.Silver;
+
+            this.lblOxygen.AutoSize = true;
+            this.lblOxygen.Font = new Font("Segoe UI", 12F);
+            this.lblOxygen.Location = new Point(50, 16);
+            this.lblOxygen.Text = "🫧 Oxygen: --";
+
             this.panelOxygen.Controls.Add(this.ledOxygen);
             this.panelOxygen.Controls.Add(this.lblOxygen);
-            this.panelOxygen.Location = new System.Drawing.Point(20, 240);
-            this.panelOxygen.Name = "panelOxygen";
-            this.panelOxygen.Size = new System.Drawing.Size(380, 70);
-            this.panelOxygen.TabIndex = 2;
-            // 
-            // ledOxygen
-            // 
-            this.ledOxygen.BackColor = System.Drawing.Color.Gray;
-            this.ledOxygen.Location = new System.Drawing.Point(15, 25);
-            this.ledOxygen.Name = "ledOxygen";
-            this.ledOxygen.Size = new System.Drawing.Size(18, 18);
-            this.ledOxygen.TabIndex = 0;
-            // 
-            // lblOxygen
-            // 
-            this.lblOxygen.AutoSize = true;
-            this.lblOxygen.Location = new System.Drawing.Point(50, 25);
-            this.lblOxygen.Name = "lblOxygen";
-            this.lblOxygen.Size = new System.Drawing.Size(109, 16);
-            this.lblOxygen.TabIndex = 1;
-            this.lblOxygen.Text = "🫧 Oxygen: -- mg/L";
-            // 
-            // panelLight
-            // 
-            this.panelLight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // ----------------------------------------
+            // LIGHT PANEL
+            // ----------------------------------------
+            this.panelLight.Size = new Size(300, 120);
+            this.panelLight.Location = new Point(300, 350);
+
+            this.ledLight.Size = new Size(18, 18);
+            this.ledLight.Location = new Point(20, 20);
+            this.ledLight.BackColor = Color.Silver;
+
+            this.lblLight.AutoSize = true;
+            this.lblLight.Font = new Font("Segoe UI", 12F);
+            this.lblLight.Location = new Point(50, 16);
+            this.lblLight.Text = "💡 Light: --";
+
             this.panelLight.Controls.Add(this.ledLight);
             this.panelLight.Controls.Add(this.lblLight);
-            this.panelLight.Location = new System.Drawing.Point(20, 340);
-            this.panelLight.Name = "panelLight";
-            this.panelLight.Size = new System.Drawing.Size(380, 70);
-            this.panelLight.TabIndex = 3;
-            // 
-            // ledLight
-            // 
-            this.ledLight.BackColor = System.Drawing.Color.Gray;
-            this.ledLight.Location = new System.Drawing.Point(15, 25);
-            this.ledLight.Name = "ledLight";
-            this.ledLight.Size = new System.Drawing.Size(18, 18);
-            this.ledLight.TabIndex = 0;
-            // 
-            // lblLight
-            // 
-            this.lblLight.AutoSize = true;
-            this.lblLight.Location = new System.Drawing.Point(50, 25);
-            this.lblLight.Name = "lblLight";
-            this.lblLight.Size = new System.Drawing.Size(61, 16);
-            this.lblLight.TabIndex = 1;
-            this.lblLight.Text = "💡 Light: --";
-            // 
-            // panelFeeder
-            // 
-            this.panelFeeder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // ----------------------------------------
+            // FEEDER PANEL
+            // ----------------------------------------
+            this.panelFeeder.Size = new Size(300, 120);
+            this.panelFeeder.Location = new Point(650, 350);
+
+            this.ledFeeder.Size = new Size(18, 18);
+            this.ledFeeder.Location = new Point(20, 20);
+            this.ledFeeder.BackColor = Color.Silver;
+
+            this.lblFeeder.AutoSize = true;
+            this.lblFeeder.Font = new Font("Segoe UI", 12F);
+            this.lblFeeder.Location = new Point(50, 16);
+            this.lblFeeder.Text = "🐟 Feeder: --";
+
             this.panelFeeder.Controls.Add(this.ledFeeder);
             this.panelFeeder.Controls.Add(this.lblFeeder);
-            this.panelFeeder.Location = new System.Drawing.Point(20, 440);
-            this.panelFeeder.Name = "panelFeeder";
-            this.panelFeeder.Size = new System.Drawing.Size(380, 70);
-            this.panelFeeder.TabIndex = 4;
-            // 
-            // ledFeeder
-            // 
-            this.ledFeeder.BackColor = System.Drawing.Color.Gray;
-            this.ledFeeder.Location = new System.Drawing.Point(15, 25);
-            this.ledFeeder.Name = "ledFeeder";
-            this.ledFeeder.Size = new System.Drawing.Size(18, 18);
-            this.ledFeeder.TabIndex = 0;
-            // 
-            // lblFeeder
-            // 
-            this.lblFeeder.AutoSize = true;
-            this.lblFeeder.Location = new System.Drawing.Point(50, 25);
-            this.lblFeeder.Name = "lblFeeder";
-            this.lblFeeder.Size = new System.Drawing.Size(80, 16);
-            this.lblFeeder.TabIndex = 1;
-            this.lblFeeder.Text = "🐟 Feeder: --";
-            // 
-            // btnDarkMode
-            // 
-            this.btnDarkMode.Location = new System.Drawing.Point(700, 30);
-            this.btnDarkMode.Name = "btnDarkMode";
-            this.btnDarkMode.Size = new System.Drawing.Size(120, 30);
-            this.btnDarkMode.TabIndex = 5;
-            this.btnDarkMode.Text = "🌙 Dark Mode";
-            this.btnDarkMode.Click += new System.EventHandler(this.btnDarkMode_Click);
-            // 
-            // btnViewLog
-            // 
-            this.btnViewLog.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnViewLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewLog.Location = new System.Drawing.Point(170, 570);
-            this.btnViewLog.Name = "btnViewLog";
-            this.btnViewLog.Size = new System.Drawing.Size(150, 35);
-            this.btnViewLog.TabIndex = 6;
-            this.btnViewLog.Text = "📄 View Log";
-            this.btnViewLog.UseVisualStyleBackColor = false;
-            this.btnViewLog.Click += new System.EventHandler(this.btnViewLog_Click);
-            // 
-            // btnCalibration
-            // 
-            this.btnCalibration.BackColor = System.Drawing.Color.White;
-            this.btnCalibration.Location = new System.Drawing.Point(700, 70);
-            this.btnCalibration.Name = "btnCalibration";
-            this.btnCalibration.Size = new System.Drawing.Size(120, 30);
-            this.btnCalibration.TabIndex = 7;
-            this.btnCalibration.Text = "⚙️ Calibration";
-            this.btnCalibration.UseVisualStyleBackColor = false;
-            this.btnCalibration.Click += new System.EventHandler(this.btnCalibration_Click);
-            // 
-            // MainDashboard
-            // 
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(850, 650);
+
+            // ----------------------------------------
+            // TOP BUTTONS
+            // ----------------------------------------
+            this.btnDarkMode.Text = "☀ Light";
+            this.btnDarkMode.Size = new Size(120, 34);
+            this.btnDarkMode.Location = new Point(940, 20);
+            this.btnDarkMode.FlatStyle = FlatStyle.Flat;
+            this.btnDarkMode.FlatAppearance.BorderSize = 0;
+            this.btnDarkMode.Click += new EventHandler(this.btnDarkMode_Click);
+
+            this.btnCalibration.Text = "⚙ Calibration";
+            this.btnCalibration.Size = new Size(120, 34);
+            this.btnCalibration.Location = new Point(940, 62);
+            this.btnCalibration.FlatStyle = FlatStyle.Flat;
+            this.btnCalibration.FlatAppearance.BorderSize = 0;
+            this.btnCalibration.Click += new EventHandler(this.btnCalibration_Click);
+
+            this.btnViewLog.Text = "📜 View Event Log";
+            this.btnViewLog.Size = new Size(200, 34);
+            this.btnViewLog.Location = new Point(460, 650);
+            this.btnViewLog.FlatStyle = FlatStyle.Flat;
+            this.btnViewLog.FlatAppearance.BorderSize = 0;
+            this.btnViewLog.Click += new EventHandler(this.btnViewLog_Click);
+
+            // ----------------------------------------
+            // FORM SETTINGS
+            // ----------------------------------------
+            this.ClientSize = new Size(1122, 806);
+            this.BackColor = Color.FromArgb(240, 244, 252);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Smart Aquarium Controller – Dashboard";
+            this.DoubleBuffered = true;
+            this.Load += new EventHandler(this.MainDashboard_Load);
+
+            // ----------------------------------------
+            // ADD CONTROLS
+            // ----------------------------------------
+            this.Controls.Add(this.lblSectionSensors);
+            this.Controls.Add(this.lineSensors);
+            this.Controls.Add(this.lblSectionSystems);
+            this.Controls.Add(this.lineSystems);
+
             this.Controls.Add(this.panelTemp);
             this.Controls.Add(this.panelPH);
             this.Controls.Add(this.panelOxygen);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelFeeder);
+
             this.Controls.Add(this.btnDarkMode);
-            this.Controls.Add(this.btnViewLog);
             this.Controls.Add(this.btnCalibration);
-            this.Name = "MainDashboard";
-            this.Text = "Smart Aquarium Controller – Main Dashboard";
-            this.panelTemp.ResumeLayout(false);
-            this.panelTemp.PerformLayout();
-            this.panelPH.ResumeLayout(false);
-            this.panelPH.PerformLayout();
-            this.panelOxygen.ResumeLayout(false);
-            this.panelOxygen.PerformLayout();
-            this.panelLight.ResumeLayout(false);
-            this.panelLight.PerformLayout();
-            this.panelFeeder.ResumeLayout(false);
-            this.panelFeeder.PerformLayout();
-            this.ResumeLayout(false);
+            this.Controls.Add(this.btnViewLog);
 
             // ================== ANALYTICS PANEL (RIGHT SIDE) ==================
 
@@ -325,31 +310,37 @@
             // Add analytics panel to form
             this.Controls.Add(this.panelAnalytics);
         }
-
         #endregion
 
         private System.Windows.Forms.Timer timer1;
 
-        private System.Windows.Forms.Panel panelTemp;
-        private System.Windows.Forms.Panel panelPH;
-        private System.Windows.Forms.Panel panelOxygen;
-        private System.Windows.Forms.Panel panelLight;
-        private System.Windows.Forms.Panel panelFeeder;
+        private Panel panelTemp;
+        private Panel ledTemp;
+        private Label lblTemp;
 
-        private System.Windows.Forms.Panel ledTemp;
-        private System.Windows.Forms.Panel ledPH;
-        private System.Windows.Forms.Panel ledOxygen;
-        private System.Windows.Forms.Panel ledLight;
-        private System.Windows.Forms.Panel ledFeeder;
+        private Panel panelPH;
+        private Panel ledPH;
+        private Label lblPH;
 
-        private System.Windows.Forms.Label lblTemp;
-        private System.Windows.Forms.Label lblPH;
-        private System.Windows.Forms.Label lblOxygen;
-        private System.Windows.Forms.Label lblLight;
-        private System.Windows.Forms.Label lblFeeder;
+        private Panel panelOxygen;
+        private Panel ledOxygen;
+        private Label lblOxygen;
 
-        private System.Windows.Forms.Button btnDarkMode;
-        private System.Windows.Forms.Button btnViewLog;
-        private System.Windows.Forms.Button btnCalibration;
+        private Panel panelLight;
+        private Panel ledLight;
+        private Label lblLight;
+
+        private Panel panelFeeder;
+        private Panel ledFeeder;
+        private Label lblFeeder;
+
+        private Button btnDarkMode;
+        private Button btnCalibration;
+        private Button btnViewLog;
+
+        private Label lblSectionSensors;
+        private Label lblSectionSystems;
+        private Panel lineSensors;
+        private Panel lineSystems;
     }
 }

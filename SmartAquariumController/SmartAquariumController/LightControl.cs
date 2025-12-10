@@ -68,6 +68,11 @@ namespace SmartAquariumController
             IsLightOn = shouldBeOn;
         }
 
+        public void ResetToAuto()
+        {
+            ManualOverride = false;
+        }
+
         /// <summary>
         /// Returns TRUE only when the light actually changes (used for logging)
         /// </summary>
