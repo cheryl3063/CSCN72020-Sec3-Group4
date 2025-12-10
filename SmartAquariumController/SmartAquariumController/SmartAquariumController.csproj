@@ -97,6 +97,12 @@
     <EmbeddedResource Include="MainDashboard.resx">
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="ManualControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualControlForm.Designer.cs">
+      <DependentUpon>ManualControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="SensorStatus.cs" />
     <!-- Sensors -->

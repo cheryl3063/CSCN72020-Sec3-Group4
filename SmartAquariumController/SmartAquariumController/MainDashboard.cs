@@ -662,6 +662,10 @@ namespace SmartAquariumController
             cf.ShowDialog();
         }
 
+        private void btnManualControls_Click(object sender, EventArgs e)
+        {
+            var form = new ManualControlForm(lightControl, feederControl);
+            form.Show();
         private async void PanelLight_Click(object sender, EventArgs e)
         {
             lightControl.Toggle();
