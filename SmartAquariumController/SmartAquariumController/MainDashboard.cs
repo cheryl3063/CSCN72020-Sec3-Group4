@@ -146,6 +146,9 @@ namespace SmartAquariumController
                 LogEvent(isOn ? "Light Turned ON" : "Light Turned OFF");
             }
 
+            lblLight.Text = lightControl.GetStatus();
+            ledLight.BackColor = lightControl.IsLightOn ? Color().LimeGreen : Color.Gray;
+
             // ---------------- FEEDER ----------------
             string status = feederControl.GetStatus();
             lblFeeder.Text = $"🐟 Feeder: {status}";
@@ -657,6 +660,13 @@ namespace SmartAquariumController
         {
             CalibrationForm cf = new CalibrationForm();
             cf.ShowDialog();
+        }
+
+        private async void PanelLight_Click(object sender, EventArgs e)
+        {
+            lightControl.Toggle();
+            await feederControl.FeedNow();
+            UpdateDashboardUI();
         }
     }
 }
